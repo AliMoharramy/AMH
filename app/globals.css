@@ -17,17 +17,18 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: black;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+.todo-active-nav {
+  background-color: rgb(19, 53, 111);
+  border-top-left-radius: 5rem;
+  border-top-right-radius: 5rem;
+  position: relative;
+  z-index: 999;
 }
