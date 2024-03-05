@@ -26,9 +26,26 @@ body {
   }
 }
 .todo-active-nav {
-  background-color: rgb(19, 53, 111);
+  background-color: #000000;
   border-top-left-radius: 5rem;
   border-top-right-radius: 5rem;
-  position: relative;
-  z-index: 999;
+  color: white;
+}
+.todolistbox {
+  min-height: 80vh;
+  height: 80vh;
+}
+.todocard {
+  border: 0.5px solid gray;
+}
+.circle {
+  border: 1px solid gray;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.scrolbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
