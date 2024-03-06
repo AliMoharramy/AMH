@@ -1,0 +1,14 @@
+{
+  "cards": [
+    { "text": "doing my programming job", "rank": "A", "id": 1 },
+    { "text": "visit musuem", "rank": "B", "id": 2 },
+    { "text": "see my grandpa", "rank": "A", "id": 3 },
+    { "text": "complite course", "rank": "A", "id": 4 },
+    { "text": "recorgin chapter 13,14", "rank": "B", "id": 5 },
+    { "text": "uni subjects complite", "rank": "A", "id": 6 },
+    { "text": "ready for ramadan", "rank": "B", "id": 7 },
+    { "text": "check doctors time", "rank": "c", "id": 8 },
+    { "text": "meditation", "rank": "A", "id": 9 },
+    { "text": "start youtube channel", "rank": "A", "id": 10 }
+  ]
+}

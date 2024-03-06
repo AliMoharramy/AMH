@@ -35,6 +35,10 @@ body {
   min-height: 80vh;
   height: 80vh;
 }
+.donelistbox {
+  min-height: 48vh;
+  height: 48vh;
+}
 .todocard {
   border: 0.5px solid gray;
 }

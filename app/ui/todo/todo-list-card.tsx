@@ -1,10 +1,30 @@
-export default function TodoCard() {
+interface cardData {
+  text: string;
+  rank: string;
+  id: number;
+}
+export default function TodoCard({
+  data,
+  onDragStart,
+}: {
+  data: Array<cardData>;
+  onDragStart: Function;
+}) {
+  console.log(...data);
   return (
-    <div className="border-solid border-white todocard rounded-3xl p-2 m-1 flex items-center text-xs">
-      <p className="rounded-2xl me-1 px-2 py-1  inline text-white bg-btcolor">
-        A
-      </p>
-      <p className=" overflow-hidden">Ok this is my todo list and my job</p>
+    <div
+      className="border-solid border-white todocard rounded-3xl p-2 m-1 flex text-xs flex-col
+    "
+      draggable
+      onDragStart={(e) => onDragStart(e, data[0].id)}
+    >
+      <div className="flex items-center">
+        <p className="rounded-2xl mt-1 ms-1 me-1 px-2 py-1 text-white bg-btcolor">
+          {data[0].rank}
+        </p>
+        <p>5-6pm</p>
+      </div>
+      <p className=" overflow-hidden p-3">{data[0].text}</p>
     </div>
   );
 }
