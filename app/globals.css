@@ -60,3 +60,12 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
   cursor: crosshair;
 }
+.dragonwork {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #9a3c3ce3,
+    #9a3c3ce3 10px,
+    #9a3c3c73 10px,
+    #9a3c3c73 20px
+  );
+}

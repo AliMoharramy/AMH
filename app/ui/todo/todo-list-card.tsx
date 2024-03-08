@@ -1,8 +1,5 @@
-interface cardData {
-  text: string;
-  rank: string;
-  id: number;
-}
+import { cardData } from "@/app/lib/definitions";
+
 export default function TodoCard({
   data,
   onDragStart,

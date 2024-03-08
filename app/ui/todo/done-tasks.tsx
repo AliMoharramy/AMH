@@ -1,11 +1,6 @@
 import TodoCard from "./todo-list-card";
 import data from "../../lib/data.json";
-
-interface cardData {
-  text: string;
-  rank: string;
-  id: number;
-}
+import { cardData } from "@/app/lib/definitions";
 
 export default function DoneTasks({ doneTasks }: { doneTasks: Array<number> }) {
   const selectedTasks: cardData[] = [];
