@@ -1,14 +1,34 @@
 import TodoCard from "./todo-list-card";
 import data from "../../lib/data.json";
 
+interface cardData {
+  text: string;
+  rank: string;
+  id: number;
+}
+
 export default function DoneTasks({ doneTasks }: { doneTasks: Array<number> }) {
-  const checked = [];
+  const selectedTasks: cardData[] = [];
+  doneTasks.forEach((e) => {
+    let item = data.cards.find((item) => item.id === e);
+    item != undefined && selectedTasks.push(item);
+  });
   return (
     <div className="bg-bodyBox rounded-2xl row-span-3 row-start-3 col-start-2 p-2 overflow-scroll scrolbar donelistbox">
       <p className="m-2">done tasks</p>
-      {/* {doneTasks &&
-        Array.from({ length: doneTasks.length }, (_, i) => findTask(i))} */}
-      {/* <TodoCard data={[{ rank: "A", place: 1 }]} /> */}
+      {Array.from({ length: selectedTasks.length }, (_, i) => (
+        <TodoCard
+          key={i}
+          isdrag={false}
+          data={[
+            {
+              rank: selectedTasks[i].rank,
+              id: selectedTasks[i].id,
+              text: selectedTasks[i].text,
+            },
+          ]}
+        />
+      ))}
     </div>
   );
 }

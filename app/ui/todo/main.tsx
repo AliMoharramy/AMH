@@ -7,14 +7,15 @@ import data from "../../lib/data.json";
 import { useState } from "react";
 
 export default function MainTodo() {
+  const [todo, setTodo] = useState(data.cards);
   const [workingOn, setWorkingOn] = useState<number>();
   const [doneTasks, setDoneTasks] = useState<number[]>([]);
 
   function compliteTask() {
+    // move task from working on to doneTask and clear working
     workingOn && setDoneTasks([...doneTasks, workingOn]);
     setWorkingOn(undefined);
   }
-
   function handleOnDrag(e: React.DragEvent, id: number) {
     const target = e.target as Element;
     e.dataTransfer.setData("checkId", String(id));
@@ -27,13 +28,20 @@ export default function MainTodo() {
   function handleOnDrop(e: React.DragEvent) {
     const checkId = e.dataTransfer.getData("checkId") as string;
     setWorkingOn(Number(checkId));
+    // clear working task from todo list
+    setTodo(todo.filter((item) => item.id !== Number(checkId)));
   }
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
   }
   return (
     <div className="grid grid-cols-5 grid-rows-5 gap-px pt-12  w-11/12 mx-auto">
-      <TodoList onDragStart={handleOnDrag} handleDropDown={handleDropDown} />
+      <TodoList
+        onDragStart={handleOnDrag}
+        handleDropDown={handleDropDown}
+        //send wokingOn to clear that task from todo list
+        todo={todo}
+      />
       <DoneTasks doneTasks={doneTasks} />
       <WorkingTask
         workingOn={workingOn}
