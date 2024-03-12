@@ -4,7 +4,7 @@ import TodoCard from "./todo-list-card";
 import data from "../../lib/data.json";
 //it's a react custom timer hook
 import { useStopwatch } from "react-timer-hook";
-
+import { createPrivateKey } from "crypto";
 export default function WorkingTask({
   onDrop,
   onDragOver,
@@ -16,27 +16,21 @@ export default function WorkingTask({
   workingOn: number | undefined;
   compliteTask: MouseEventHandler;
 }) {
-  const {
-    totalSeconds,
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    reset,
-  } = useStopwatch({ autoStart: false });
+  const { totalSeconds, seconds, minutes, hours, start, pause, reset } =
+    useStopwatch({ autoStart: false });
   let workingTask = data.cards.find((item) => item.id === workingOn);
   //start the timer and doing task
   function drop(e: React.DragEvent) {
     const target = e.target as Element;
     target.classList.remove("dragonwork");
     onDrop(e);
-    start();
+    reset();
   }
   //pausing the time and make the task complited
   function doneTask(e: React.MouseEvent) {
+    if (workingOn !== undefined) {
+      data.cards[workingOn].duration = `${seconds}`;
+    }
     compliteTask(e);
     pause();
   }

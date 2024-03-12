@@ -5,11 +5,13 @@ export default function TodoCard({
   onDragStart,
   isdrag = true,
   ondragend,
+  duration,
 }: {
   data: Array<cardData>;
   onDragStart?: Function;
   isdrag: boolean;
   ondragend?: Function;
+  duration?: string;
 }) {
   return (
     <div
@@ -30,6 +32,7 @@ export default function TodoCard({
         <p>5-6pm</p>
       </div>
       <p className=" overflow-hidden p-3">{data[0].text}</p>
+      {duration && <p>{duration}</p>}
     </div>
   );
 }

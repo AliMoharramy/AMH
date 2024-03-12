@@ -15,6 +15,7 @@ export default function DoneTasks({ doneTasks }: { doneTasks: Array<number> }) {
         <TodoCard
           key={i}
           isdrag={false}
+          duration={"23:44"}
           data={[
             {
               rank: selectedTasks[i].rank,
