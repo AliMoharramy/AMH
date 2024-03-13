@@ -6,10 +6,12 @@ export default function TodoList({
   onDragStart,
   handleDropDown,
   todo,
+  showTaskInfo,
 }: {
   onDragStart: Function;
   handleDropDown: Function;
   todo: cardData[];
+  showTaskInfo: Function;
 }) {
   //delete working on data from todolist
   return (
@@ -19,6 +21,7 @@ export default function TodoList({
         <TodoCard
           key={i}
           isdrag
+          showTaskInfo={showTaskInfo}
           onDragStart={onDragStart}
           ondragend={handleDropDown}
           data={[

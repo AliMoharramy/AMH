@@ -10,6 +10,7 @@ export default function MainTodo() {
   const [todo, setTodo] = useState(data.cards);
   const [workingOn, setWorkingOn] = useState<number>(NaN);
   const [doneTasks, setDoneTasks] = useState<number[]>([]);
+  const [taskInfo, setTaskInfo] = useState<number>(NaN);
 
   function compliteTask() {
     // move task from working on to doneTask and clear working
@@ -34,22 +35,27 @@ export default function MainTodo() {
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
   }
+  //
+  function showTaskInfo(e: number) {
+    setTaskInfo(e);
+  }
   return (
     <div className="grid grid-cols-5 grid-rows-5 gap-px pt-12  w-11/12 mx-auto">
       <TodoList
         onDragStart={handleOnDrag}
         handleDropDown={handleDropDown}
+        showTaskInfo={showTaskInfo}
         //send wokingOn to clear that task from todo list
         todo={todo}
       />
-      <DoneTasks doneTasks={doneTasks} />
+      <DoneTasks doneTasks={doneTasks} showTaskInfo={showTaskInfo} />
       <WorkingTask
         workingOn={workingOn}
         onDrop={handleOnDrop}
         onDragOver={handleDragOver}
         compliteTask={compliteTask}
       />
-      <InfoBox />
+      <InfoBox taskInfo={taskInfo} showTaskInfo={showTaskInfo} />
       <div className="bg-bodyBox rounded-s-2xl p-2 col-start-3 col-span-2 row-span-2">
         middle part
       </div>
