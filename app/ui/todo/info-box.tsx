@@ -7,7 +7,6 @@ export default function InfoBox({
   showTaskInfo: Function;
 }) {
   const taskData = data.cards.find((item) => item.id === taskInfo);
-  console.log(taskInfo && taskData);
   return (
     <div className="bg-bodyBox rounded-2xl p-2 col-span-2 row-span-3 row-start-1 col-start-3">
       {taskInfo && (

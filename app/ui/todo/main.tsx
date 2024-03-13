@@ -5,6 +5,7 @@ import TodoList from "./todo-list";
 import WorkingTask from "./workin-task";
 import data from "../../lib/data.json";
 import { useState } from "react";
+import PomoTimer from "./pomoTimer";
 
 export default function MainTodo() {
   const [todo, setTodo] = useState(data.cards);
@@ -55,13 +56,19 @@ export default function MainTodo() {
         onDragOver={handleDragOver}
         compliteTask={compliteTask}
       />
-      <InfoBox taskInfo={taskInfo} showTaskInfo={showTaskInfo} />
-      <div className="bg-bodyBox rounded-s-2xl p-2 col-start-3 col-span-2 row-span-2">
-        middle part
-      </div>
-      <div className="bg-bodyBox rounded-e-2xl rounded-t-2xl p-2 row-span-5 col-start-5 row-start-1">
-        right part
-      </div>
+      {workingOn ? (
+        <PomoTimer />
+      ) : (
+        <>
+          <InfoBox taskInfo={taskInfo} showTaskInfo={showTaskInfo} />
+          <div className="bg-bodyBox rounded-s-2xl p-2 col-start-3 col-span-2 row-span-2">
+            middle part
+          </div>
+          <div className="bg-bodyBox rounded-e-2xl rounded-t-2xl p-2 row-span-5 col-start-5 row-start-1">
+            right part
+          </div>
+        </>
+      )}
     </div>
   );
 }
