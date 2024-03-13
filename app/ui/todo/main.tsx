@@ -8,13 +8,13 @@ import { useState } from "react";
 
 export default function MainTodo() {
   const [todo, setTodo] = useState(data.cards);
-  const [workingOn, setWorkingOn] = useState<number>();
+  const [workingOn, setWorkingOn] = useState<number>(NaN);
   const [doneTasks, setDoneTasks] = useState<number[]>([]);
 
   function compliteTask() {
     // move task from working on to doneTask and clear working
     workingOn && setDoneTasks([...doneTasks, workingOn]);
-    setWorkingOn(undefined);
+    setWorkingOn(NaN);
   }
   function handleOnDrag(e: React.DragEvent, id: number) {
     const target = e.target as Element;

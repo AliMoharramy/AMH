@@ -29,7 +29,9 @@ export default function WorkingTask({
   //pausing the time and make the task complited
   function doneTask(e: React.MouseEvent) {
     if (workingOn !== undefined) {
-      data.cards[workingOn].duration = `${seconds}`;
+      data.cards[workingOn - 1].duration = `${minutes + hours * 60 < 10 && 0}${
+        minutes + hours * 60
+      }:${seconds < 10 ? 0 : ""}${seconds}`;
     }
     compliteTask(e);
     pause();

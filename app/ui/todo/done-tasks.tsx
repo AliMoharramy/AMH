@@ -6,6 +6,7 @@ export default function DoneTasks({ doneTasks }: { doneTasks: Array<number> }) {
   const selectedTasks: cardData[] = [];
   doneTasks.forEach((e) => {
     let item = data.cards.find((item) => item.id === e);
+    console.log(e - 1, item);
     item != undefined && selectedTasks.push(item);
   });
   return (
@@ -14,8 +15,8 @@ export default function DoneTasks({ doneTasks }: { doneTasks: Array<number> }) {
       {Array.from({ length: selectedTasks.length }, (_, i) => (
         <TodoCard
           key={i}
+          duration={selectedTasks[i].duration}
           isdrag={false}
-          duration={"23:44"}
           data={[
             {
               rank: selectedTasks[i].rank,
