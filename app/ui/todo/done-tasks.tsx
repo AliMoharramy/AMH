@@ -15,7 +15,7 @@ export default function DoneTasks({
     item != undefined && selectedTasks.push(item);
   });
   return (
-    <div className="bg-bodyBox rounded-2xl row-span-3 row-start-3 col-start-2 p-2 overflow-scroll scrolbar donelistbox">
+    <div className="bg-bodyBox rounded-2xl row-span-3 row-start-3 col-span-2 col-start-3 p-2 overflow-scroll scrolbar donelistbox">
       <p className="m-2">done tasks</p>
       {Array.from({ length: selectedTasks.length }, (_, i) => (
         <TodoCard

@@ -8,16 +8,10 @@ export default function InfoBox({
 }) {
   const taskData = data.cards.find((item) => item.id === taskInfo);
   return (
-    <div className="bg-bodyBox rounded-2xl p-2 col-span-2 row-span-3 row-start-1 col-start-3">
-      {taskInfo && (
-        <>
-          <p>id is : {taskData?.id}</p>
-          <p>task is : {taskData?.text}</p>
-          {taskData?.duration && (
-            <p>duration to done this task is : {taskData?.duration}</p>
-          )}
-        </>
-      )}
+    <div className="bg-bodyBox p-2 col-span-3 row-span-3 row-start-2 col-start-5 justify-center flex items-center">
+      <button className="px-8 py-5 bg-btcolor rounded-xl justify-center flex hover:bg-todoNav">
+        New Task
+      </button>
     </div>
   );
 }

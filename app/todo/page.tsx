@@ -7,6 +7,7 @@ import WorkingTask from "../ui/todo/workin-task";
 import data from "..//lib/data.json";
 import PomoTimer from "../ui/todo/pomoTimer";
 import { useState } from "react";
+import { rubikGemstones } from "../ui/fonts";
 export default function TodoPage() {
   const [todo, setTodo] = useState(data.cards);
   const [workingOn, setWorkingOn] = useState<number>(NaN);
@@ -50,7 +51,7 @@ export default function TodoPage() {
         ]}
         active={0}
       />
-      <div className="grid grid-cols-5 grid-rows-5 gap-px pt-12  w-11/12 mx-auto">
+      <div className="grid grid-cols-8 grid-rows-5 gap-px pt-12  w-11/12 mx-auto">
         <TodoList
           onDragStart={handleOnDrag}
           handleDropDown={handleDropDown}
@@ -70,11 +71,15 @@ export default function TodoPage() {
         ) : (
           <>
             <InfoBox taskInfo={taskInfo} showTaskInfo={showTaskInfo} />
-            <div className="bg-bodyBox rounded-s-2xl p-2 col-start-3 col-span-2 row-span-2">
-              middle part
-            </div>
-            <div className="bg-bodyBox rounded-e-2xl rounded-t-2xl p-2 row-span-5 col-start-5 row-start-1">
-              right part
+            <div className="bg-bodyBox rounded-2xl p-2 row-span-5 col-start-8 row-start-1 relative overflow-hidden">
+              <div className="bg-white p-10 absolute rounded-full middlemove"></div>
+              <div className="bg-white p-10 absolute rounded-full middlemoverev"></div>
+              <div className="absolute w-full h-full glassyitem"></div>
+              <p
+                className={`${rubikGemstones.className} absolute text-black left-1/5 text-6xl [writing-mode:vertical-lr] w-full h-full top-0 left-0 text-center flex justify-center items-center`}
+              >
+                WORK HARD
+              </p>
             </div>
           </>
         )}

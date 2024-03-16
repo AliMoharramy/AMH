@@ -46,7 +46,7 @@ export default function WorkingTask({
   }
   return (
     <div
-      className="wobox bg-bodyBox relative rounded-2xl p-2 col-start-2 row-start-1 row-span-2 flex flex-col"
+      className="wobox bg-bodyBox relative rounded-2xl p-2 col-start-3 col-span-2 row-start-1 row-span-2 flex flex-col"
       onDrop={(e) => drop(e)}
       onDragOver={onDragOver}
       onDragOverCapture={(e) => dragOverit(e)}

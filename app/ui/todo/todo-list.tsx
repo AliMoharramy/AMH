@@ -15,7 +15,7 @@ export default function TodoList({
 }) {
   //delete working on data from todolist
   return (
-    <div className="bg-bodyBox rounded-2xl todolistbox row-span-5 p-2 overflow-scroll scrolbar">
+    <div className="bg-bodyBox rounded-2xl todolistbox col-span-2 row-span-5 p-2 overflow-scroll scrolbar">
       <p className="m-2">Tasks</p>
       {Array.from({ length: todo.length }, (_, i) => (
         <TodoCard

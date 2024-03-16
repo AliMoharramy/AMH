@@ -9,7 +9,7 @@ export default function PomoTimer() {
   const [fullPage, setFullPage] = useState<boolean>(false);
   return (
     <div
-      className={clsx("bg-bodyBox p-5 rounded-2xl row-span-5 col-span-3", {
+      className={clsx("bg-bodyBox p-5 rounded-2xl row-span-5 col-span-4", {
         relative: !fullPage,
       })}
     >
