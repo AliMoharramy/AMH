@@ -3,13 +3,21 @@ import { useStopwatch } from "react-timer-hook";
 import { archivoBlack } from "../fonts";
 import { useState } from "react";
 import clsx from "clsx";
-export default function PomoTimer() {
-  const { totalSeconds, seconds, minutes, hours, start, pause, reset } =
-    useStopwatch({ autoStart: true });
-  const [fullPage, setFullPage] = useState<boolean>(false);
+export default function PomoTimer({
+  minutes,
+  hours,
+  seconds,
+}: {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}) {
+  // const { totalSeconds, seconds, minutes, hours, start, pause, reset } =
+  //   useStopwatch({ autoStart: true });
+  const [fullPage, setFullPage] = useState<boolean>(true);
   return (
     <div
-      className={clsx("bg-bodyBox p-5 rounded-2xl row-span-5 col-span-4", {
+      className={clsx("bg-bodyBox p-5 rounded-2xl row-span-5 col-span-4 ", {
         relative: !fullPage,
       })}
     >

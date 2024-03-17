@@ -23,6 +23,8 @@ export default function DoneTasks({
           showTaskInfo={showTaskInfo}
           duration={selectedTasks[i].duration}
           isdrag={false}
+          start={selectedTasks[i].start}
+          end={selectedTasks[i].end}
           data={[
             {
               rank: selectedTasks[i].rank,

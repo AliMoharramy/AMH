@@ -3,4 +3,6 @@ export type cardData = {
   rank: string;
   id: number;
   duration?: string;
+  start?: string;
+  end?: string;
 };

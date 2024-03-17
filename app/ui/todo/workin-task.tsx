@@ -5,6 +5,7 @@ import data from "../../lib/data.json";
 //it's a react custom timer hook
 import { useStopwatch } from "react-timer-hook";
 import { createPrivateKey } from "crypto";
+import PomoTimer from "./pomoTimer";
 export default function WorkingTask({
   onDrop,
   onDragOver,
@@ -26,14 +27,23 @@ export default function WorkingTask({
     onDrop(e);
     reset();
   }
+  if (seconds === 1 && workingOn !== undefined) {
+    data.cards[
+      workingOn - 1
+    ].start = `${new Date().getHours()}:${new Date().getMinutes()}`;
+  }
   //pausing the time and make the task complited
   function doneTask(e: React.MouseEvent) {
     if (workingOn !== undefined) {
       data.cards[workingOn - 1].duration = `${
         minutes + hours * 60 < 10 ? 0 : ""
       }${minutes + hours * 60}:${seconds < 10 ? 0 : ""}${seconds}`;
+      data.cards[
+        workingOn - 1
+      ].end = `${new Date().getHours()}:${new Date().getMinutes()}`;
     }
     compliteTask(e);
+    reset();
     pause();
   }
   function dragOverit(e: React.DragEvent) {
@@ -44,6 +54,7 @@ export default function WorkingTask({
     const target = e.target as Element;
     target.classList.remove("dragonwork");
   }
+
   return (
     <div
       className="wobox bg-bodyBox relative rounded-2xl p-2 col-start-3 col-span-2 row-start-1 row-span-2 flex flex-col"
@@ -52,6 +63,9 @@ export default function WorkingTask({
       onDragOverCapture={(e) => dragOverit(e)}
       onDragLeave={(e) => dragleaveit(e)}
     >
+      {/* {workingOn && (
+        <PomoTimer minutes={minutes} seconds={seconds} hours={hours} />
+      )} */}
       <div className="flex items-center justify-between m-2">
         <p>working on</p>
         <p className="text-xs">
@@ -65,7 +79,7 @@ export default function WorkingTask({
         {workingTask && <TodoCard data={[workingTask]} isdrag={false} />}
       </div>
       <button
-        className="absolute -bottom-3 left-1/3 ml-3 bg-todoNav px-8 py-1 rounded-full"
+        className="absolute -bottom-5 left-0 right-0 ml-auto mr-auto bg-todoNav px-14 py-2 rounded-xl hover:bg-btcolor"
         onClick={(e) => doneTask(e)}
       >
         &#8595;

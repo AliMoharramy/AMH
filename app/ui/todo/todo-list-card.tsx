@@ -7,6 +7,8 @@ export default function TodoCard({
   ondragend,
   duration,
   showTaskInfo,
+  start,
+  end,
 }: {
   data: Array<cardData>;
   onDragStart?: Function;
@@ -14,6 +16,8 @@ export default function TodoCard({
   ondragend?: Function;
   duration?: string;
   showTaskInfo?: Function;
+  start?: string;
+  end?: string;
 }) {
   function handleClick() {
     showTaskInfo && showTaskInfo(data[0].id);
@@ -35,7 +39,8 @@ export default function TodoCard({
         <p className="rounded-2xl mt-1 ms-1 me-1 px-2 py-1 text-white bg-btcolor">
           {data[0].rank}
         </p>
-        <p>5-6pm</p>
+        {start && <p className="px-1">{start}</p>}
+        {end && <p>{end}</p>}
       </div>
       <p className=" overflow-hidden p-3">{data[0].text}</p>
       {duration && <p>{duration}</p>}

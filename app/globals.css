@@ -135,8 +135,8 @@ body {
 .glassyitem {
   background: rgba(90, 93, 93, 0.4);
   box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   left: 0;
   top: 0;
 }
