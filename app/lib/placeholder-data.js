@@ -7,17 +7,18 @@ const Tasks = [
     rank: "A",
     duration: "25:00",
     start: "15:10",
-    end: "15:35",
+    endtime: "15:35",
   },
   {
     task_id: 2,
     title: "create linkedin account",
-    description: "create linkedin account and connect to more than 10 people ",
+    description: "create linkedin account and connect to more than 10 people",
     rank: "B",
     duration: "50:00",
     start: "16:00",
-    end: "16:50",
+    endtime: "16:50",
   },
+
   {
     task_id: 3,
     title: "dinner reserve",
@@ -26,6 +27,6 @@ const Tasks = [
     rank: "A",
     duration: "20:00",
     start: "21:42",
-    end: "22:02",
+    endtime: "22:02",
   },
 ];

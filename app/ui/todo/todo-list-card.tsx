@@ -6,7 +6,6 @@ export default function TodoCard({
   isdrag = true,
   ondragend,
   duration,
-  showTaskInfo,
   start,
   end,
 }: {
@@ -15,18 +14,13 @@ export default function TodoCard({
   isdrag: boolean;
   ondragend?: Function;
   duration?: string;
-  showTaskInfo?: Function;
   start?: string;
   end?: string;
 }) {
-  function handleClick() {
-    showTaskInfo && showTaskInfo(data[0].id);
-  }
   return (
     <div
       className="border-solid border-white todocard rounded-3xl p-2 m-1 flex text-xs flex-col
     "
-      onClick={handleClick}
       draggable={isdrag}
       onDragStart={
         isdrag && onDragStart ? (e) => onDragStart(e, data[0].id) : undefined

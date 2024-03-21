@@ -1,12 +1,13 @@
-"use client";
+// "use client";
 import { DragEventHandler, MouseEventHandler } from "react";
 import TodoCard from "./todo-list-card";
 import data from "../../lib/data.json";
+import Timer from "./timer";
+import { fetchTasks } from "../../lib/data";
+
 //it's a react custom timer hook
-import { useStopwatch } from "react-timer-hook";
-import { createPrivateKey } from "crypto";
-import PomoTimer from "./pomoTimer";
-export default function WorkingTask({
+// import { useStopwatch } from "react-timer-hook";
+export default async function WorkingTask({
   onDrop,
   onDragOver,
   workingOn,
@@ -14,37 +15,38 @@ export default function WorkingTask({
 }: {
   onDrop: Function;
   onDragOver: DragEventHandler;
-  workingOn: number | undefined;
+  workingOn: string | undefined;
   compliteTask: MouseEventHandler;
 }) {
-  const { totalSeconds, seconds, minutes, hours, start, pause, reset } =
-    useStopwatch({ autoStart: false });
-  let workingTask = data.cards.find((item) => item.id === workingOn);
+  // const { totalSeconds, seconds, minutes, hours, start, pause, reset } =
+  //   useStopwatch({ autoStart: false });
+  const tasks = await fetchTasks();
+  let workingTask = tasks.find((item) => item.task_id === workingOn);
   //start the timer and doing task
   function drop(e: React.DragEvent) {
     const target = e.target as Element;
     target.classList.remove("dragonwork");
     onDrop(e);
-    reset();
+    // reset();
   }
-  if (seconds === 1 && workingOn !== undefined) {
-    data.cards[
-      workingOn - 1
-    ].start = `${new Date().getHours()}:${new Date().getMinutes()}`;
-  }
+  // if (seconds === 1 && workingOn !== undefined) {
+  //   data.cards[
+  //     workingOn - 1
+  //   ].start = `${new Date().getHours()}:${new Date().getMinutes()}`;
+  // }
   //pausing the time and make the task complited
   function doneTask(e: React.MouseEvent) {
-    if (workingOn !== undefined) {
-      data.cards[workingOn - 1].duration = `${
-        minutes + hours * 60 < 10 ? 0 : ""
-      }${minutes + hours * 60}:${seconds < 10 ? 0 : ""}${seconds}`;
-      data.cards[
-        workingOn - 1
-      ].end = `${new Date().getHours()}:${new Date().getMinutes()}`;
-    }
+    // if (workingOn !== undefined) {
+    //    data.cards[workingOn - 1].duration = `${
+    //      minutes + hours * 60 < 10 ? 0 : ""
+    //    }${minutes + hours * 60}:${seconds < 10 ? 0 : ""}${seconds}`;
+    //   data.cards[
+    //     workingOn - 1
+    //   ].end = `${new Date().getHours()}:${new Date().getMinutes()}`;
+    // }
     compliteTask(e);
-    reset();
-    pause();
+    // reset();
+    // pause();
   }
   function dragOverit(e: React.DragEvent) {
     const target = e.target as Element;
@@ -68,12 +70,13 @@ export default function WorkingTask({
       )} */}
       <div className="flex items-center justify-between m-2">
         <p>working on</p>
-        <p className="text-xs">
+        {/* <p className="text-xs">
           {hours < 10 && 0}
           {hours}:{minutes < 10 && 0}
           {minutes}:{seconds < 10 && 0}
           {seconds}
-        </p>
+        </p> */}
+        <Timer />
       </div>
       <div className="mt-8">
         {workingTask && <TodoCard data={[workingTask]} isdrag={false} />}

@@ -1,25 +1,24 @@
 import TodoCard from "./todo-list-card";
-import data from "../../lib/data.json";
-import { cardData } from "@/app/lib/definitions";
+import { fetchTasks } from "../../lib/data";
+import { cardData, tasksRaw } from "@/app/lib/definitions";
 import clsx from "clsx";
 import CreateTask from "./createTask";
+import { start } from "repl";
 
-export default function TodoList({
+export default async function TodoList({
   onDragStart,
   handleDropDown,
-  todo,
-  showTaskInfo,
   setAddTask,
   addTask,
+  tasks,
 }: {
   onDragStart: Function;
   handleDropDown: Function;
-  todo: cardData[];
-  showTaskInfo: Function;
   setAddTask: Function;
   addTask: boolean;
+  tasks: tasksRaw;
 }) {
-  //delete working on data from todolist
+  //const tasks = await fetchTasks();
   return (
     <div
       className={clsx(
@@ -41,20 +40,22 @@ export default function TodoList({
         </>
       )}
       {!addTask &&
-        Array.from({ length: todo.length }, (_, i) => (
+        Array.from({ length: tasks.length }, (_, i) => (
           <TodoCard
             key={i}
             isdrag
-            showTaskInfo={showTaskInfo}
             onDragStart={onDragStart}
             ondragend={handleDropDown}
             data={[
               {
-                rank: todo[i].rank,
-                id: todo[i].id,
-                text: todo[i].text,
+                rank: tasks[i].rank,
+                id: tasks[i].task_id,
+                text: tasks[i].title,
               },
             ]}
+            duration={tasks[i].duration}
+            start={tasks[i].start}
+            end={tasks[i].endtime}
           />
         ))}
     </div>
