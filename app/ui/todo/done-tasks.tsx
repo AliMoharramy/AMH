@@ -1,7 +1,7 @@
 import TodoCard from "./todo-list-card";
 import { tasksRaw } from "@/app/lib/definitions";
 
-export default async function DoneTasks({
+export default function DoneTasks({
   doneTasks,
   tasks,
 }: {

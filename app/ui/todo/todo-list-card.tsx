@@ -1,4 +1,4 @@
-import { cardData, tasksRaw } from "@/app/lib/definitions";
+import { tasksRaw } from "@/app/lib/definitions";
 
 export default function TodoCard({
   data,
