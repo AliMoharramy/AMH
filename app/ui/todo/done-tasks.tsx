@@ -1,17 +1,16 @@
 import TodoCard from "./todo-list-card";
-import data from "../../lib/data.json";
-import { cardData } from "@/app/lib/definitions";
-import { fetchTasks } from "../../lib/data";
+import { tasksRaw } from "@/app/lib/definitions";
 
 export default async function DoneTasks({
   doneTasks,
+  tasks,
 }: {
   doneTasks: Array<string>;
+  tasks: Array<tasksRaw>;
 }) {
-  const tasks = await fetchTasks();
-  const selectedTasks: cardData[] = [];
+  const selectedTasks: tasksRaw[] = [];
   doneTasks.forEach((e) => {
-    let item = data.cards.find((item) => item.id === e);
+    let item = tasks.find((item) => item.task_id === e);
     item != undefined && selectedTasks.push(item);
   });
   return (
@@ -23,12 +22,13 @@ export default async function DoneTasks({
           duration={selectedTasks[i].duration}
           isdrag={false}
           start={selectedTasks[i].start}
-          end={selectedTasks[i].end}
+          end={selectedTasks[i].endtime}
           data={[
             {
               rank: selectedTasks[i].rank,
-              id: selectedTasks[i].id,
-              text: selectedTasks[i].text,
+              task_id: selectedTasks[i].task_id,
+              title: selectedTasks[i].title,
+              description: selectedTasks[i].description,
             },
           ]}
         />

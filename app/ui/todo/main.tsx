@@ -2,13 +2,11 @@
 import DoneTasks from "./done-tasks";
 import TodoList from "./todo-list";
 import WorkingTask from "./workin-task";
-import data from "../../lib/data.json";
 import { useState } from "react";
 import { rubikGemstones } from "../fonts";
 import { tasksRaw } from "../../lib/definitions";
-import PomoTimer from "./pomoTimer";
 
-export default function MainTodo({ tasks }: { tasks: tasksRaw | any }) {
+export default function MainTodo({ tasks }: { tasks: Array<tasksRaw> }) {
   const [workingOn, setWorkingOn] = useState<string>("");
   const [doneTasks, setDoneTasks] = useState<string[]>([]);
   const [addTask, setAddTask] = useState<boolean>(false);
@@ -30,8 +28,6 @@ export default function MainTodo({ tasks }: { tasks: tasksRaw | any }) {
   function handleOnDrop(e: React.DragEvent) {
     const checkId = e.dataTransfer.getData("checkId") as string;
     setWorkingOn(checkId);
-    // clear working task from todo list
-    //setTodo(todo.filter((item) => item.id !== Number(checkId)));
   }
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
@@ -45,15 +41,14 @@ export default function MainTodo({ tasks }: { tasks: tasksRaw | any }) {
         addTask={addTask}
         setAddTask={setAddTask}
         tasks={tasks}
-        //send wokingOn to clear that task from todo list
-        // todo={todo}
       />
-      <DoneTasks doneTasks={doneTasks} />
+      <DoneTasks doneTasks={doneTasks} tasks={tasks} />
       <WorkingTask
         workingOn={workingOn}
         onDrop={handleOnDrop}
         onDragOver={handleDragOver}
         compliteTask={compliteTask}
+        tasks={tasks}
       />
 
       <div className="bg-bodyBox rounded-2xl p-2 row-span-5 col-start-8 row-start-1 relative overflow-hidden">

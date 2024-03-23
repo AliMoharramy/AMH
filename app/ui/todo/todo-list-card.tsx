@@ -1,4 +1,4 @@
-import { cardData } from "@/app/lib/definitions";
+import { cardData, tasksRaw } from "@/app/lib/definitions";
 
 export default function TodoCard({
   data,
@@ -9,7 +9,7 @@ export default function TodoCard({
   start,
   end,
 }: {
-  data: Array<cardData>;
+  data: Array<tasksRaw>;
   onDragStart?: Function;
   isdrag: boolean;
   ondragend?: Function;
@@ -23,10 +23,12 @@ export default function TodoCard({
     "
       draggable={isdrag}
       onDragStart={
-        isdrag && onDragStart ? (e) => onDragStart(e, data[0].id) : undefined
+        isdrag && onDragStart
+          ? (e) => onDragStart(e, data[0].task_id)
+          : undefined
       }
       onDragEnd={
-        isdrag && ondragend ? (e) => ondragend(e, data[0].id) : undefined
+        isdrag && ondragend ? (e) => ondragend(e, data[0].task_id) : undefined
       }
     >
       <div className="flex items-center">
@@ -36,7 +38,7 @@ export default function TodoCard({
         {start && <p className="px-1">{start}</p>}
         {end && <p>{end}</p>}
       </div>
-      <p className=" overflow-hidden p-3">{data[0].text}</p>
+      <p className=" overflow-hidden p-3">{data[0].title}</p>
       {duration && <p>{duration}</p>}
     </div>
   );

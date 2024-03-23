@@ -1,11 +1,9 @@
 import TodoCard from "./todo-list-card";
-import { fetchTasks } from "../../lib/data";
-import { cardData, tasksRaw } from "@/app/lib/definitions";
+import { tasksRaw } from "@/app/lib/definitions";
 import clsx from "clsx";
 import CreateTask from "./createTask";
-import { start } from "repl";
 
-export default async function TodoList({
+export default function TodoList({
   onDragStart,
   handleDropDown,
   setAddTask,
@@ -16,9 +14,8 @@ export default async function TodoList({
   handleDropDown: Function;
   setAddTask: Function;
   addTask: boolean;
-  tasks: tasksRaw;
+  tasks: Array<tasksRaw>;
 }) {
-  //const tasks = await fetchTasks();
   return (
     <div
       className={clsx(
@@ -49,8 +46,9 @@ export default async function TodoList({
             data={[
               {
                 rank: tasks[i].rank,
-                id: tasks[i].task_id,
-                text: tasks[i].title,
+                task_id: tasks[i].task_id,
+                title: tasks[i].title,
+                description: tasks[i].description,
               },
             ]}
             duration={tasks[i].duration}

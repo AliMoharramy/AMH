@@ -11,7 +11,7 @@ export type tasksRaw = {
   title: string;
   description: string;
   rank: string;
-  duration: string;
-  start: string;
-  endtime: string;
+  duration?: string;
+  start?: string;
+  endtime?: string;
 };
