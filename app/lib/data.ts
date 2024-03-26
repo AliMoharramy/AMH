@@ -9,8 +9,8 @@ export async function fetchTasks() {
         SELECT tasks.task_id, tasks.title, tasks.description, tasks.rank, tasks.duration, tasks.start, tasks.endtime
         FROM tasks`;
 
-    const alltasks = data.rows.map((invoice) => ({
-      ...invoice,
+    const alltasks = data.rows.map((tasks) => ({
+      ...tasks,
     }));
     return alltasks;
   } catch (error) {
@@ -18,3 +18,22 @@ export async function fetchTasks() {
     throw new Error("Failed to fetch the tasks.");
   }
 }
+export async function updateTaskTiming(
+  id: string,
+  start: string,
+  endtime: string
+) {
+  try {
+    await sql`
+      UPDATE tasks
+      SET start = ${start}, endtime = ${endtime}
+      WHERE task_id = ${id}
+    `;
+  } catch (error) {
+    return { message: "Database Error: Failed to Update task." };
+  }
+}
+
+// UPDATE tasks
+// SET start = '14:25'
+// WHERE task_id = '88ae2076-88fe-4e6c-b08b-cf41e828cbca'

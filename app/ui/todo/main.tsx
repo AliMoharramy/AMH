@@ -11,7 +11,7 @@ export default function MainTodo({ tasks }: { tasks: Array<tasksRaw> }) {
   const [doneTasks, setDoneTasks] = useState<string[]>([]);
   const [addTask, setAddTask] = useState<boolean>(false);
 
-  function compliteTask() {
+  function compliteTask(e: string) {
     // move task from working on to doneTask and clear working
     workingOn && setDoneTasks([...doneTasks, workingOn]);
     setWorkingOn("");

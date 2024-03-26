@@ -1,7 +1,8 @@
-import { DragEventHandler, MouseEventHandler } from "react";
+import { DragEventHandler } from "react";
 import TodoCard from "./todo-list-card";
 import Timer from "./timer";
 import { tasksRaw } from "@/app/lib/definitions";
+import { updateTaskTiming } from "@/app/lib/data";
 
 export default function WorkingTask({
   onDrop,
@@ -13,7 +14,7 @@ export default function WorkingTask({
   onDrop: Function;
   onDragOver: DragEventHandler;
   workingOn: string | undefined;
-  compliteTask: MouseEventHandler;
+  compliteTask(e: string): void;
   tasks: Array<tasksRaw>;
 }) {
   let workingTask: tasksRaw | undefined = tasks.find(
@@ -26,7 +27,10 @@ export default function WorkingTask({
     onDrop(e);
   }
   function doneTask(e: React.MouseEvent) {
-    compliteTask(e);
+    let time = new Date();
+    let doneTime = `${time.getHours()}:${time.getMinutes()}`;
+    updateTaskTiming("9da61932-ea4e-4e83-9e28-3a632b6855b4", doneTime, "14:00");
+    compliteTask(doneTime);
   }
   function dragOverit(e: React.DragEvent) {
     const target = e.target as Element;
