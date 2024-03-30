@@ -140,3 +140,15 @@ body {
   left: 0;
   top: 0;
 }
+.searchIcon {
+  font-size: 1rem;
+}
+.shopping-cart {
+  font-size: 2rem;
+  padding: 0.2rem;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+.navHeart {
+  font-size: 1.6rem;
+}

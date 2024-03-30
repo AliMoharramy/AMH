@@ -3,6 +3,7 @@ const { Tasks } = require("../app/lib/placeholder-data.js");
 const bcrypt = require("bcrypt");
 
 async function seedTasks(client) {
+  console.log(Tasks);
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -10,7 +11,7 @@ async function seedTasks(client) {
     const createTable = await client.sql`
     CREATE TABLE IF NOT EXISTS tasks (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    task_id UUID NOT NULL,
+    task_id INT NOT NULL,
     title VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     rank VARCHAR(2) NOT NULL,
@@ -19,12 +20,9 @@ async function seedTasks(client) {
     endtime VARCHAR(5) NOT NULL
   );
 `;
-
-    console.log(`Created "tasks" table`);
-
     // Insert data into the "Tasks" table
     const insertedTasks = await Promise.all(
-      Tasks.map(
+      Tasks.forEach(
         (task) => client.sql`
         INSERT INTO tasks (task_id, title, description, rank, duration, start, endtime)
         VALUES (${task.task_id}, ${task.title}, ${task.description}, ${task.rank}, ${task.duration}, ${task.start}, ${task.endtime})
@@ -32,8 +30,6 @@ async function seedTasks(client) {
       `
       )
     );
-
-    console.log(`Seeded ${insertedTasks.length} tasks`);
 
     return {
       createTable,

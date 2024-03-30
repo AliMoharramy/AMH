@@ -18,16 +18,12 @@ export async function fetchTasks() {
     throw new Error("Failed to fetch the tasks.");
   }
 }
-export async function updateTaskTiming(
-  id: string,
-  start: string,
-  endtime: string
-) {
+export async function updateTaskTiming() {
   try {
     await sql`
       UPDATE tasks
-      SET start = ${start}, endtime = ${endtime}
-      WHERE task_id = ${id}
+      SET start = '1:48', endtime = '2:30'
+      WHERE rank = 'A'
     `;
   } catch (error) {
     return { message: "Database Error: Failed to Update task." };

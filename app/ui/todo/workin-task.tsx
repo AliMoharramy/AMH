@@ -29,7 +29,7 @@ export default function WorkingTask({
   function doneTask(e: React.MouseEvent) {
     let time = new Date();
     let doneTime = `${time.getHours()}:${time.getMinutes()}`;
-    updateTaskTiming("9da61932-ea4e-4e83-9e28-3a632b6855b4", doneTime, "14:00");
+    updateTaskTiming();
     compliteTask(doneTime);
   }
   function dragOverit(e: React.DragEvent) {
