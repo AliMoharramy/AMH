@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
-import { tasksRaw } from "./definitions";
+import { tasksRaw, products } from "./definitions";
 
 export async function fetchTasks() {
   noStore();
@@ -16,6 +16,22 @@ export async function fetchTasks() {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch the tasks.");
+  }
+}
+export async function fetchProducts() {
+  noStore();
+  try {
+    const data = await sql<products>`
+        SELECT products.product_id, products.name, products.size, products.cost, products.img
+        FROM products`;
+
+    const allproducts = data.rows.map((products) => ({
+      ...products,
+    }));
+    return allproducts;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch the products.");
   }
 }
 export async function updateTaskTiming() {

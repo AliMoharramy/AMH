@@ -1,10 +1,14 @@
+import Main from "../ui/shop/main";
 import ShopNav from "../ui/shop/shopNav";
+import { fetchProducts } from "../lib/data";
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const products = await fetchProducts();
+  console.log(products);
   return (
-    <div className="">
+    <div className="bg-shopBody">
       <ShopNav />
-      this part is main
+      <Main />
     </div>
   );
 }

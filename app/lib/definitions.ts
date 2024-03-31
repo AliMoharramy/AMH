@@ -7,3 +7,10 @@ export type tasksRaw = {
   start?: string;
   endtime?: string;
 };
+export type products = {
+  product_id: number;
+  name: string;
+  size: string;
+  cost: string;
+  img: string;
+};

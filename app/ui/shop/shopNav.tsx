@@ -17,7 +17,7 @@ export default function ShopNav() {
               <li>Blog</li>
             </ul>
           </nav>
-          <IconContext.Provider value={{ color: "red" }}>
+          <IconContext.Provider value={{ className: "navHeart" }}>
             <Search />
           </IconContext.Provider>
         </div>

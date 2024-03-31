@@ -55,3 +55,16 @@ main().catch((err) => {
     err
   );
 });
+
+//products part
+// `CREATE TABLE IF NOT EXISTS products (
+//   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+//   product_id INT NOT NULL,
+//   name VARCHAR(50) NOT NULL,
+//   size VARCHAR(40) NOT NULL,
+//   cost VARCHAR(10) NOT NULL,
+//   img TEXT NOT NULL
+// );`;
+//-----------------
+// `INSERT INTO products (product_id, name, size, cost, img)
+// VALUES (4, 'TN 657', '100 × 65 cm', '$5,398.81', 'require("../../../public/paint4.webp")');`;
