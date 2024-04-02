@@ -4,11 +4,10 @@ import { fetchProducts } from "../lib/data";
 
 export default async function ShopPage() {
   const products = await fetchProducts();
-  console.log(products);
   return (
     <div className="bg-shopBody">
       <ShopNav />
-      <Main />
+      <Main products={products} />
     </div>
   );
 }
