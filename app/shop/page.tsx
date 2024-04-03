@@ -6,7 +6,6 @@ export default async function ShopPage() {
   const products = await fetchProducts();
   return (
     <div className="bg-shopBody">
-      <ShopNav />
       <Main products={products} />
     </div>
   );

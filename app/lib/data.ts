@@ -34,17 +34,6 @@ export async function fetchProducts() {
     throw new Error("Failed to fetch the products.");
   }
 }
-export async function updateTaskTiming() {
-  try {
-    await sql`
-      UPDATE tasks
-      SET start = '1:48', endtime = '2:30'
-      WHERE rank = 'A'
-    `;
-  } catch (error) {
-    return { message: "Database Error: Failed to Update task." };
-  }
-}
 
 // UPDATE tasks
 // SET start = '14:25'

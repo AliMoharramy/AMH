@@ -5,7 +5,7 @@ export default function DoneTasks({
   doneTasks,
   tasks,
 }: {
-  doneTasks: Array<string>;
+  doneTasks: Array<number>;
   tasks: Array<tasksRaw>;
 }) {
   const selectedTasks: tasksRaw[] = [];

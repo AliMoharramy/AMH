@@ -1,5 +1,5 @@
 export type tasksRaw = {
-  task_id: string;
+  task_id: number;
   title: string;
   description: string;
   rank: string;

@@ -2,20 +2,17 @@ import { products } from "@/app/lib/definitions";
 import Image from "next/image";
 import { GoHeart } from "react-icons/go";
 import { inconsolataBold } from "../fonts";
-const productimg = {
-  padding: "2rem",
-};
 
 export default function Card({ data }: { data: products }) {
   return (
-    <div className="flex justify-center flex-col">
+    <div className="flex justify-center flex-col cursor-pointer">
       <div className="border-3 flex justify-center h-72 relative">
         <Image
-          src={data.img}
+          src={require(`../../../image/${data.img}`)}
           alt={"paint1"}
           width={400}
           height={0}
-          style={productimg}
+          className="transform hover:scale-110 transition duration-500 p-8"
         />
       </div>
       <div className={`${inconsolataBold.className} p-2`}>

@@ -7,14 +7,14 @@ import { rubikGemstones } from "../fonts";
 import { tasksRaw } from "../../lib/definitions";
 
 export default function MainTodo({ tasks }: { tasks: Array<tasksRaw> }) {
-  const [workingOn, setWorkingOn] = useState<string>("");
-  const [doneTasks, setDoneTasks] = useState<string[]>([]);
+  const [workingOn, setWorkingOn] = useState<number>(NaN);
+  const [doneTasks, setDoneTasks] = useState<number[]>([]);
   const [addTask, setAddTask] = useState<boolean>(false);
 
   function compliteTask(e: string) {
     // move task from working on to doneTask and clear working
     workingOn && setDoneTasks([...doneTasks, workingOn]);
-    setWorkingOn("");
+    setWorkingOn(NaN);
   }
   function handleOnDrag(e: React.DragEvent, id: number) {
     const target = e.target as Element;
@@ -27,7 +27,7 @@ export default function MainTodo({ tasks }: { tasks: Array<tasksRaw> }) {
   }
   function handleOnDrop(e: React.DragEvent) {
     const checkId = e.dataTransfer.getData("checkId") as string;
-    setWorkingOn(checkId);
+    setWorkingOn(Number(checkId));
   }
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();

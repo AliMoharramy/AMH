@@ -6,7 +6,7 @@ export default function Main({ products }: { products: Array<products> }) {
   return (
     <div className="w-11/12 m-auto">
       <div
-        className={`${merriweather.className} border-3 p-8 shopBox bg-shop2Body my-12`}
+        className={`${merriweather.className} border-3 p-8 shopBox bg-shop2Body my-10`}
       >
         <h4 className={`${inconsolataBold.className} text-3xl`}>
           Art In The Making
