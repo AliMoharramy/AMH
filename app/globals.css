@@ -166,3 +166,10 @@ body {
   box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1),
     0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
+.loginForm {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}

@@ -1,6 +1,8 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 import { tasksRaw, products } from "./definitions";
+import { SignJWT, jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
 export async function fetchTasks() {
   noStore();
@@ -33,6 +35,25 @@ export async function fetchProducts() {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch the products.");
   }
+}
+const secretKey = "secret";
+const key = new TextEncoder().encode(secretKey);
+export async function encrypt(payload: any) {
+  return await new SignJWT(payload)
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setExpirationTime("10 sec from now")
+    .sign(key);
+}
+export async function login(formData: FormData) {
+  const user = {
+    username: formData.get("username"),
+    password: formData.get("password"),
+  };
+  const expires = new Date(Date.now() + 10 * 1000);
+  const session = await encrypt({ user, expires });
+
+  cookies().set("session", session, { expires, httpOnly: true });
 }
 
 // UPDATE tasks
