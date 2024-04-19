@@ -1,16 +1,15 @@
-import { getSession } from "next-auth/react";
+import { getSession } from "../lib/data";
 import { login } from "../lib/data";
 import { redirect } from "next/dist/server/api-utils";
 
 export default async function LoginForm() {
-  const session = await getSession;
+  const session = await getSession();
   return (
     <div className="absolute right-56 top-16  text-white p-8 h-full">
       <form
         action={async (formData) => {
           "use server";
           await login(formData);
-          redirect;
         }}
         className="text-center h-full"
       >
@@ -32,6 +31,8 @@ export default async function LoginForm() {
         <button type="submit" className="loginForm w-full mt-4 py-2">
           Log In
         </button>
+        <p>{session?.user.username}</p>
+        <p>{session?.expires}</p>
       </form>
     </div>
   );

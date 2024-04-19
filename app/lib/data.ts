@@ -3,6 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { tasksRaw, products } from "./definitions";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function fetchTasks() {
   noStore();
@@ -36,6 +37,18 @@ export async function fetchProducts() {
     throw new Error("Failed to fetch the products.");
   }
 }
+// export async function fetchUsers(){
+//   noStore();
+//   try{
+//     const data = await sql<users>`
+//     SELECT users.user_id, users
+//     `
+//   }
+// }
+export async function decrypt(input: string): Promise<any> {
+  const { payload } = await jwtVerify(input, key, { algorithms: ["HS256"] });
+  return payload;
+}
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 export async function encrypt(payload: any) {
@@ -54,6 +67,27 @@ export async function login(formData: FormData) {
   const session = await encrypt({ user, expires });
 
   cookies().set("session", session, { expires, httpOnly: true });
+}
+export async function updateSession(request: NextRequest) {
+  const session = request.cookies.get("session")?.value;
+  if (!session) return;
+
+  const parsed = await decrypt(session);
+  parsed.expires = new Date(Date.now() + 10 * 1000);
+  const res = NextResponse.next();
+  res.cookies.set({
+    name: "session",
+    value: await encrypt(parsed),
+    httpOnly: true,
+    expires: parsed.expires,
+  });
+  return res;
+}
+//reading from cookies
+export async function getSession() {
+  const session = cookies().get("session")?.value;
+  if (!session) return null;
+  return await decrypt(session);
 }
 
 // UPDATE tasks
