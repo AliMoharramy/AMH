@@ -68,3 +68,13 @@ main().catch((err) => {
 //-----------------
 // `INSERT INTO products (product_id, name, size, cost, img)
 // VALUES (4, 'TN 657', '100 × 65 cm', '$5,398.81', 'require("../../../public/paint4.webp")');`;
+
+// `
+//     CREATE TABLE users (
+//     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+//     user_id INT NOT NULL,
+//     email nvarchar(255) NOT NULL,
+//     password TEXT NOT NULL,
+//     name VARCHAR(30) NOT NULL,
+//   );
+// `;

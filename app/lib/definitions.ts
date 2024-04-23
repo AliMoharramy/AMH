@@ -14,3 +14,9 @@ export type products = {
   cost: string;
   img: string;
 };
+export type users = {
+  user_id: number;
+  email: string;
+  password: string;
+  name: string;
+};

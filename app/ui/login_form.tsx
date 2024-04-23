@@ -1,6 +1,6 @@
 import { getSession } from "../lib/data";
 import { login } from "../lib/data";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default async function LoginForm() {
   const session = await getSession();

@@ -1,9 +1,10 @@
 import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
-import { tasksRaw, products } from "./definitions";
+import { tasksRaw, products, users } from "./definitions";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 
 export async function fetchTasks() {
   noStore();
@@ -37,20 +38,39 @@ export async function fetchProducts() {
     throw new Error("Failed to fetch the products.");
   }
 }
-// export async function fetchUsers(){
-//   noStore();
-//   try{
-//     const data = await sql<users>`
-//     SELECT users.user_id, users
-//     `
+export async function fetchUsers() {
+  noStore();
+  try {
+    const data = await sql<users>`
+      SELECT users.user_id, users.email, users.password, users.name
+      FROM users
+      `;
+    const allusers = data.rows.map((users) => ({
+      ...users,
+    }));
+    return allusers;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch the users.");
+  }
+}
+// export async function getUser(email: string): Promise<users | any> {
+//   try {
+//     const user = await sql<users>`SELECT * FROM users WHERE email=${email}`;
+//     return user.rows[0];
+//   } catch {
+//     console.log("Failed to fetch user:");
+//     throw new Error("Failed to fetch user.");
 //   }
 // }
-export async function decrypt(input: string): Promise<any> {
-  const { payload } = await jwtVerify(input, key, { algorithms: ["HS256"] });
-  return payload;
-}
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
+export async function decrypt(input: string): Promise<any> {
+  const { payload } = await jwtVerify(input, key, {
+    algorithms: ["HS256"],
+  });
+  return payload;
+}
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
@@ -59,21 +79,27 @@ export async function encrypt(payload: any) {
     .sign(key);
 }
 export async function login(formData: FormData) {
+  const allUsers = await fetchUsers();
   const user = {
     username: formData.get("username"),
     password: formData.get("password"),
   };
-  const expires = new Date(Date.now() + 10 * 1000);
-  const session = await encrypt({ user, expires });
-
-  cookies().set("session", session, { expires, httpOnly: true });
+  if (
+    allUsers.find((item) => item.email === user.username)?.password ===
+    user.password
+  ) {
+    const expires = new Date(Date.now() + 2000 * 1000);
+    const session = await encrypt({ user, expires });
+    cookies().set("session", session, { expires, httpOnly: true });
+    redirect("/todo");
+  }
 }
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get("session")?.value;
   if (!session) return;
 
   const parsed = await decrypt(session);
-  parsed.expires = new Date(Date.now() + 10 * 1000);
+  parsed.expires = new Date(Date.now() + 2000 * 1000);
   const res = NextResponse.next();
   res.cookies.set({
     name: "session",

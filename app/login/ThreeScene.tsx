@@ -68,8 +68,6 @@ const ThreeScene: React.FC = () => {
       camera.position.set(0, 0, 40);
       scene.add(camera);
 
-      const element: Element = document.querySelector(".webgl");
-
       const canvas: HTMLCanvasElement = document.querySelector(".webgl");
 
       const renderer = new THREE.WebGLRenderer({ canvas });
