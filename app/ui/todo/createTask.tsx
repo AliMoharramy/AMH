@@ -1,6 +1,14 @@
-export default function CreateTask() {
+import { createTask } from "@/app/lib/data";
+
+export default async function CreateTask() {
   return (
-    <form>
+    <form
+      action={async (formData) => {
+        "use server";
+        await createTask(formData);
+      }}
+      className="p-2 flex flex-col text-black"
+    >
       <label htmlFor="title">title : </label>
       <input type="text" id="title" name="title" />
       <label htmlFor="description">description : </label>
@@ -18,6 +26,12 @@ export default function CreateTask() {
       </select>
       <label htmlFor="pomoCount">pomoCount</label>
       <input type="number" id="pomoCount" name="pomoCount" />
+      <button
+        type="submit"
+        className="bg-white py-1 text-black my-12 rounded-xl"
+      >
+        Create Task
+      </button>
     </form>
   );
 }

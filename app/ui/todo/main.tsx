@@ -2,11 +2,18 @@
 import DoneTasks from "./done-tasks";
 import TodoList from "./todo-list";
 import WorkingTask from "./workin-task";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { rubikGemstones } from "../fonts";
 import { tasksRaw } from "../../lib/definitions";
+import CreateTask from "./createTask";
 
-export default function MainTodo({ tasks }: { tasks: Array<tasksRaw> }) {
+export default function MainTodo({
+  tasks,
+  children,
+}: {
+  tasks: Array<tasksRaw>;
+  children: ReactElement<any> | null;
+}) {
   const [workingOn, setWorkingOn] = useState<number>(NaN);
   const [doneTasks, setDoneTasks] = useState<number[]>([]);
   const [addTask, setAddTask] = useState<boolean>(false);
@@ -41,7 +48,9 @@ export default function MainTodo({ tasks }: { tasks: Array<tasksRaw> }) {
         addTask={addTask}
         setAddTask={setAddTask}
         tasks={tasks}
-      />
+      >
+        {children}
+      </TodoList>
       <DoneTasks doneTasks={doneTasks} tasks={tasks} />
       <WorkingTask
         workingOn={workingOn}

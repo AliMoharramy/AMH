@@ -2,6 +2,7 @@ import TodoCard from "./todo-list-card";
 import { tasksRaw } from "@/app/lib/definitions";
 import clsx from "clsx";
 import CreateTask from "./createTask";
+import { ReactElement } from "react";
 
 export default function TodoList({
   onDragStart,
@@ -9,12 +10,14 @@ export default function TodoList({
   setAddTask,
   addTask,
   tasks,
+  children,
 }: {
   onDragStart: Function;
   handleDropDown: Function;
   setAddTask: Function;
   addTask: boolean;
   tasks: Array<tasksRaw>;
+  children: ReactElement<any> | null;
 }) {
   return (
     <div
@@ -22,7 +25,7 @@ export default function TodoList({
         "bg-bodyBox rounded-2xl todolistbox col-span-2 row-span-5 p-2 overflow-scroll scrolbar "
       )}
     >
-      {addTask && <CreateTask />}
+      {addTask && children}
       {!addTask && (
         <>
           <div className="flex items-center justify-between m-2 mb-4">

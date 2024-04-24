@@ -5,6 +5,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { redirect } from "next/navigation";
+import { EXPORT_DETAIL } from "next/dist/shared/lib/constants";
 
 export async function fetchTasks() {
   noStore();
@@ -75,9 +76,10 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("10 sec from now")
+    .setExpirationTime("1h")
     .sign(key);
 }
+let expires: any;
 export async function login(formData: FormData) {
   const allUsers = await fetchUsers();
   const user = {
@@ -88,7 +90,7 @@ export async function login(formData: FormData) {
     allUsers.find((item) => item.email === user.username)?.password ===
     user.password
   ) {
-    const expires = new Date(Date.now() + 2000 * 1000);
+    expires = new Date(Date.now() * 100 + 60 * 60 * 2);
     const session = await encrypt({ user, expires });
     cookies().set("session", session, { expires, httpOnly: true });
     redirect("/todo");
@@ -99,13 +101,13 @@ export async function updateSession(request: NextRequest) {
   if (!session) return;
 
   const parsed = await decrypt(session);
-  parsed.expires = new Date(Date.now() + 2000 * 1000);
+  //parsed.expires = new Date(Date.now() * 100 + 60 * 60 * 2);
   const res = NextResponse.next();
   res.cookies.set({
     name: "session",
     value: await encrypt(parsed),
     httpOnly: true,
-    expires: parsed.expires,
+    expires: expires,
   });
   return res;
 }
@@ -119,3 +121,7 @@ export async function getSession() {
 // UPDATE tasks
 // SET start = '14:25'
 // WHERE task_id = '88ae2076-88fe-4e6c-b08b-cf41e828cbca'
+
+export function createTask(formData: FormData) {
+  console.log(formData);
+}
