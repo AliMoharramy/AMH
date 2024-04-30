@@ -68,33 +68,33 @@ const ThreeScene: React.FC = () => {
       camera.position.set(0, 0, 40);
       scene.add(camera);
 
-      const canvas: HTMLCanvasElement = document.querySelector(".webgl");
+      const canvas: HTMLCanvasElement | null = document.querySelector(".webgl");
 
-      const renderer = new THREE.WebGLRenderer({ canvas });
-      renderer.setSize(sizes.width, sizes.height);
-      renderer.setPixelRatio(2);
-      renderer.render(scene, camera);
-
-      const controls = new OrbitControls(camera, canvas);
-      controls.enableDamping = true;
-      //controls.enablePan = false;
-      controls.enableZoom = false;
-      //controls.autoRotate = true;
-
-      window.addEventListener("resize", () => {
-        sizes.width = window.innerWidth;
-        sizes.height = window.innerHeight;
-        camera.aspect = sizes.width / sizes.height;
-        camera.updateProjectionMatrix();
+      if (canvas) {
+        const renderer = new THREE.WebGLRenderer({ canvas });
         renderer.setSize(sizes.width, sizes.height);
-      });
-
-      const loop = () => {
-        controls.update();
+        renderer.setPixelRatio(2);
         renderer.render(scene, camera);
-        window.requestAnimationFrame(loop);
-      };
-      loop();
+
+        const controls = new OrbitControls(camera, canvas);
+        controls.enableDamping = true;
+        //controls.enablePan = false;
+        controls.enableZoom = false;
+        //controls.autoRotate = true;
+        window.addEventListener("resize", () => {
+          sizes.width = window.innerWidth;
+          sizes.height = window.innerHeight;
+          camera.aspect = sizes.width / sizes.height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(sizes.width, sizes.height);
+        });
+        const loop = () => {
+          controls.update();
+          renderer.render(scene, camera);
+          window.requestAnimationFrame(loop);
+        };
+        loop();
+      }
     }
   }, []);
   return <div ref={containerRef} />;
